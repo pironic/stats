@@ -14,8 +14,6 @@ $url_recent = 'http://climate.weather.gc.ca/climate_data/bulk_data_e.html?format
 
 $payload = [];
 
-$url_archaic = 'https://repono.writhem.com/old.xml';
-$url_recent = 'https://repono.writhem.com/new.xml';
 // load the old one first.
 $archaic = simplexml_load_file($url_archaic) or die("feed not loading");
 

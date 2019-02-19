@@ -9,8 +9,6 @@
 require_once('config.php');
 $url = 'https://calgary.weatherstats.ca/data/cloud_cover_8-hourly.js?key=wd01&browser_zone=Mountain%20Daylight%20Time';
 
-$url = 'https://repono.writhem.com/cloud.js';
-
 // Dragons below.
 
 $payload = [];

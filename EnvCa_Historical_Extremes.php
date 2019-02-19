@@ -5,8 +5,7 @@
  * Date: 20/12/18
  * Time: 3:45 PM
  */
- 
-require_once('config.php');
+require_once('lib.php');
 $url_archaic = 'http://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=xml&stationID=2205&Year=2008&Month=1&Day=1&timeframe=4';
 $url_recent = 'http://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=xml&stationID=50430&Year=2008&Month=1&Day=1&timeframe=4';
 
@@ -120,34 +119,4 @@ foreach ($extremes as $month_index=>$month) {
     }
 }
 
-
-if (count($payload) > 0) {
-    
-    print_r($payload);
-
-    // post to echelon endpoint here.
-    $curl = curl_init($cfg['echelon_url']);
-    curl_setopt($curl, CURLOPT_HEADER, false);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array("Content-type: application/json",
-            "API-KEY: ". $cfg['echelon_key']));
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload));
-
-    $json_response = curl_exec($curl);
-    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    print_r($json_response);
-    print_r($status);
-
-    if ( $status != 200 ) {
-        die("Error: call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
-    }
-
-
-    curl_close($curl);
-
-    $response = json_decode($json_response, true);
-} else {
-    echo "empty payload, nothing to post\n";
-}
+postToEchelon($payload);

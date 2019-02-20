@@ -8,7 +8,6 @@
  
 require_once('lib.php');
 $url = 'http://api.wunderground.com/api/'.$cfg['wug_key'].'/conditions/q/'.$cfg['wug_gps'].'.json';
-$url = 'https://repono.writhem.com/wug.json';
 
 $payload = [];
 

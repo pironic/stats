@@ -7,7 +7,7 @@
  */
  
 require_once('lib.php');
-$url = 'http://api.wunderground.com/api/'.$cfg['wug_key'].'/conditions/q/'.$cfg['wug_gps'].'.json';
+$url = 'http://api.wunderground.com/api/'.$cfg['wug_key'].'/conditions/q/'.$cfg['gps_lat'].','.$cfg['gps_lng'].'.json';
 
 $payload = [];
 
@@ -15,7 +15,6 @@ $wx = json_decode(file_get_contents($url),true,JSON_UNESCAPED_UNICODE);
 if ($wx === null) die("JSON Error: ". json_last_error_msg());
 
 $items = [];
-print_r($wx['current_observation']);
 
 $items["s|Conditions"] = $wx['current_observation']['weather'];
 $items["f|Temperature"] = $wx['current_observation']['temp_c'];

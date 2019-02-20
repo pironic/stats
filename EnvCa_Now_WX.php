@@ -43,24 +43,8 @@ foreach ($entries as $entry_key=>$entry) {
         ## capture the Wind
         preg_match('/Wind:<\/b> ((?:[NESW]){1,3}) ((?:\d|\.|-){1,5}) km\/h(?: gust ((?:\d|\.|-){1,5}) km\/h|)/', $entry->summary, $matches);
         if ($matches) {
-            $directions = ['N'=>1,
-                'NNE'=>1.5,
-                'NE'=>2,
-                'ENE'=>2.5,
-                'E'=>3,
-                'ESE'=>3.5,
-                'SE'=>4,
-                'SSE'=>4.5,
-                'S'=>5,
-                'SSW'=>5.5,
-                'SW'=>6,
-                'WSW'=>6.5,
-                'W'=>7,
-                'WNW'=>7.5,
-                'NW'=>8,
-                'NNW'=>8.5,
-                'N'=>9];
-            $items['f|WindDirection'] = $directions[$matches[1]];
+            $items['f|WindDirection'] = $wind_directions[$matches[1]];
+            $items['f|WindDegrees'] = ($items['f|WindDirection'] - 1) * 45;
             if ($matches[3]) {
                 $items['f|WindSpeedLow'] = (float)$matches[2];
                 $items['f|WindSpeedHigh'] = (float)$matches[3];

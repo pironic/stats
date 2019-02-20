@@ -36,3 +36,22 @@ function postToEchelon($payload) {
         return false;
     }
 }
+
+
+$wind_directions = ['N'=>1,
+            'NNE'=>1.5,
+            'NE'=>2,
+            'ENE'=>2.5,
+            'E'=>3,
+            'ESE'=>3.5,
+            'SE'=>4,
+            'SSE'=>4.5,
+            'S'=>5,
+            'SSW'=>5.5,
+            'SW'=>6,
+            'WSW'=>6.5,
+            'W'=>7,
+            'WNW'=>7.5,
+            'NW'=>8,
+            'NNW'=>8.5,
+            'N'=>9];

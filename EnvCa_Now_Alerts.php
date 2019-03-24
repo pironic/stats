@@ -21,20 +21,20 @@ $entries = $xml->entry;
 foreach ($entries as $entry_key=>$entry) {
     // print_r($entry);
     
-    $needle = '/(.*) (WARNING|WATCH|STATEMENT) (.*),/';
+    $needle = '/(.*) (WARNING|WATCH|STATEMENT|ADVISORY) (.*),/';
     $haystack = $entry->title;
     preg_match($needle, $haystack, $matches);
     if ($matches)  {
         // alerts found. capture the info.
-        $items['alert_title'] = $entry->title;
+        $items['alert_title'] = (string)$entry->title;
         $items['alert_tag'] = $matches[2];
         $items['alert_status'] = $matches[3];
-        $items['alert_summary'] = $entry->summary;
+        $items['alert_summary'] = (string)$entry->summary[0];
         
         array_push($payload,array('tags'=>array('host'=>'envca'),'fields'=>$items,'timestamp'=>$entry->updated));
     }
 
-    print_r($payload);
+    //print_r($payload);
 }
 
 postToEchelon($payload);
